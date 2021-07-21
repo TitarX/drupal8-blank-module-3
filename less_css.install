@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function less_css_install()
+{
+	module_set_weight('less_css', 100);
+}
+
+/**
+ * @return mixed
+ * Implements hook_schema()
+ */
+function less_css_schema()
+{
+	$schema['less_css'] = array(					// Название таблицы
+		'decription' => 'LESS CSS',					// Описание таблицы
+		'fields' => array(							// Массив с колонками таблицы
+			'id' => array(							// Название колонки
+				'description' => 'ID',				// Описание колонки
+			'type' => 'serial',						// Тип данных
+			'size' => 'normal',						// Размер типа данных
+			'unsigned' => true,						// Unsigned (Без знака), по умолчанию FALSE
+			'not null' => true						// Не может быть пустым
+			),
+			'regenerate' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 1)
+		),
+		'primary key' => array('id')
+	);
+	
+	return $schema;
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function less_css_uninstall()
+{
+	\Drupal::state()->delete('less_css.less_css');
+}
